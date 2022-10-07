@@ -1,6 +1,7 @@
 from pyexpat import model
 from turtle import update
 from django.db import models
+from django.conf import settings
 
 
 class Sender(models.Model):
@@ -57,3 +58,10 @@ class Status(models.Model):
     updated=models.DateTimeField(auto_now_add=True)
     service=models.ForeignKey(Service, on_delete=models.CASCADE)
     packet=models.ForeignKey(Packet, on_delete=models.CASCADE)
+
+class Admin(models.Model):
+    superUser=models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="app_admin_superUser"
+    )
