@@ -8,11 +8,29 @@ from .models import Service
 
 # Register your models here.
 
-admin.site.register(Sender)
-admin.site.register(Receiver)
-admin.site.register(Address)
-admin.site.register(Packet)
-admin.site.register(Status)
+class SenderAdmin(admin.ModelAdmin):
+    list_display= ("fullName","ciNit","phoneNumber","email")
+
+class ReceiverAdmin(admin.ModelAdmin):
+    list_display= ("fullName","ciNit","phoneNumber","email")
+
+class AddressAdmin(admin.ModelAdmin):
+    list_display= ("address","city","latitude","longitude")
+
+class PacketAdmin(admin.ModelAdmin):
+    list_display= ("type","description","price","address","sender","receiver")
+
+class StatusAdmin(admin.ModelAdmin):
+    list_display= ("type","packet","created","updated")
+
+#class ServiceAdmin(admin.ModelAdmin):
+ #   list_display= ("type")
+
+admin.site.register(Sender,SenderAdmin)
+admin.site.register(Receiver,ReceiverAdmin)
+admin.site.register(Address,AddressAdmin)
+admin.site.register(Packet,PacketAdmin)
+admin.site.register(Status,StatusAdmin)
 admin.site.register(Service)
 
 

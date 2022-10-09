@@ -14,16 +14,22 @@ class Sender(models.Model):
         return self.fullName
 
 class Receiver(models.Model):
-    fullName=models.CharField(max_length=200,unique=True)
-    ciNit=models.CharField(max_length=10,unique=True)
+    fullName=models.CharField(max_length=200)
+    ciNit=models.CharField(max_length=10)
     phoneNumber=models.CharField(max_length=12)
     email=models.EmailField(max_length=250)
+
+    def __str__(self):
+        return self.fullName
 
 class Address(models.Model):
     address=models.CharField(max_length=200)
     city=models.CharField(max_length=100)
     latitude=models.CharField(max_length=30)
     longitude=models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.address
 
 class Packet(models.Model):
     type=models.CharField(max_length=200)
@@ -33,20 +39,28 @@ class Packet(models.Model):
     receiver=models.ForeignKey(Receiver, on_delete=models.CASCADE)
     address=models.ForeignKey(Address, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.type
+
 class TypeService(models.TextChoices):
-    STANDARD='s','Standard'
-    PREMIUM='p','premium'
+    STANDARD='Standard','Standard'
+    PREMIUM='Premium','Premium'
 
 class Service(models.Model):
     type=models.CharField(
-        max_length=2,
+        max_length=10,
         choices=TypeService.choices,
         default=TypeService.STANDARD
     )
+
+    def __str__(self):
+        return self.type
+
 class TypeStatus(models.TextChoices):
     DELIVERED='Entregado','Entregado'
     WAREHOUSE='Almacen','Almacen'
     ONWAY='Encamino', 'En camino'
+
 
 class Status(models.Model):
     type=models.CharField(
@@ -58,6 +72,9 @@ class Status(models.Model):
     updated=models.DateTimeField(auto_now_add=True)
     service=models.ForeignKey(Service, on_delete=models.CASCADE)
     packet=models.ForeignKey(Packet, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.type
 
 class Admin(models.Model):
     superUser=models.ForeignKey(

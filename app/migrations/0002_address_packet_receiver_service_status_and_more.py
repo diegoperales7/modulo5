@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
             name='Receiver',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('fullName', models.CharField(max_length=200, unique=True)),
-                ('ciNit', models.CharField(max_length=10, unique=True)),
+                ('fullName', models.CharField(max_length=200)),
+                ('ciNit', models.CharField(max_length=10)),
                 ('phoneNumber', models.CharField(max_length=12)),
                 ('email', models.EmailField(max_length=250)),
             ],
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             name='Service',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(choices=[('s', 'Standard'), ('p', 'premium')], default='s', max_length=2)),
+                ('type', models.CharField(choices=[('Standard', 'Standard'), ('Premium', 'Premium')], default='Standard', max_length=10)),
             ],
         ),
         migrations.CreateModel(
