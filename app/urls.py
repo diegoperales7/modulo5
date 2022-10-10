@@ -20,6 +20,6 @@ urlpatterns=[
 	#path('receivers/',views.receiverFormView, name="receivers"),
 
 	#path('senders/fullName?<str:fullName>',views.sender, name='sender'),
-
+	path('senders/cantidad',views.senderCount),
 	path('',include(router.urls))
 ]

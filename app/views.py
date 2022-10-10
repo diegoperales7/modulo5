@@ -1,6 +1,10 @@
+import json
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
+from django.http import JsonResponse
+
+from rest_framework.decorators import api_view
 from rest_framework import viewsets
 from email.policy import HTTP
 #from itertools import product
@@ -119,3 +123,19 @@ class ReceiverViewSet(viewsets.ModelViewSet):
 class PacketViewSet(viewsets.ModelViewSet):
 	queryset=Packet.objects.all()
 	serializer_class=PacketSerializer
+
+@api_view(["GET"])
+def senderCount(request):
+	"""
+	Cantidad de Remitentes en el modelo Senders
+	"""
+	try:
+		cantidad=Sender.objects.count()
+		return JsonResponse({
+			"cantidad":cantidad
+		},
+		safe=False,
+		status=200,
+		)
+	except Exception as e:
+		return JsonResponse({"mensaje":str(e)},status=400)
